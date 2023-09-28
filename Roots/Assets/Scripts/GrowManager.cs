@@ -6,6 +6,7 @@ using UnityEngine;
 public class GrowManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> rootCellList = new List<GameObject>();
+    private List<GameObject> newCells = new List<GameObject>(); // List to store new cells to be added
     [SerializeField] private float rootHydration = 0f;
     [SerializeField] private float neededHydration = 1f; // can change in inspector
     [SerializeField] private float rootNutrition = 0f;
@@ -20,6 +21,7 @@ public class GrowManager : MonoBehaviour
         // Instantiate the first rootCell GameObject
         if (rootCellList.Count > 0)
         {
+            rootCellList.Add(rootCellList[0]);
             Vector3 randomPosition = GetRandomPosition();
             Instantiate(rootCellList[0], randomPosition, Quaternion.identity);
             rootCellList[0].GetComponent<RootBehaviour>().hasSpawnedNewCell = false;
@@ -31,19 +33,19 @@ public class GrowManager : MonoBehaviour
 
     void Update()
     {
+        newCells.Clear(); // Clear the list of new cells at the start of each update
+
         foreach (GameObject cell in rootCellList)
         {
             RootBehaviour rootBehaviour = cell.GetComponent<RootBehaviour>();
+            // Debug log to check the value of isHydrating
+            Debug.Log("isHydrating for cell: " + rootBehaviour.isHydrating);
 
-            // Check Hydration of existing cells (check each cell in the array)
-            // if any "Root" colliders intersect with "Water" colliders (use OnTrigger):
-            // increase rootHydration, decrease availableHydration of triggered "Water" object
-            // if availableHydration <= 0, destroy that instance of triggered "Water" object
-
-            // Check Nutrition of existing cells (check each cell in the array)
-            // If any "Root" colliders intersect with "Nutrient" colliders (use OnTrigger):
-            // increase rootNutrition, decrease availableNutrition of triggered "Nutrient" object
-            // if availableNutrition <= 0, destroy that instance of triggered "Nutrient" object
+            if (rootBehaviour.isHydrating)
+            {
+                sufficientHydration = true;
+                Debug.Log("Should hydrate now...");
+            }
 
             if (sufficientHydration && sufficientNutrition)
             {
@@ -53,22 +55,24 @@ public class GrowManager : MonoBehaviour
                     Vector3 randomPosition = GetRandomPosition();
                     if (randomPosition.x > 25 || randomPosition.x < -25 || randomPosition.y > 14 || randomPosition.y < -14)
                     {
-                        
                         randomPosition = Vector3.zero;
                         lastCellPosition = randomPosition;
-                        return;
                     }
-                    GameObject newCell = Instantiate(cell, randomPosition, Quaternion.identity);
-                    rootBehaviour.hasSpawnedNewCell = true;
-                    
-                    // Add the newly instantiated cell to the List
-                    rootCellList.Add(newCell);
+                    else
+                    {
+                        GameObject newCell = Instantiate(cell, randomPosition, Quaternion.identity);
+                        rootBehaviour.hasSpawnedNewCell = true;
+                        newCells.Add(newCell); // Add the newly instantiated cell to the list
+                    }
                 }
-                
             }
         }
+
+        // Add the new cells to the rootCellList after the loop
+        rootCellList.AddRange(newCells);
+
         // if rootHydration >= neededHydration:
-        sufficientHydration = true;
+        //sufficientHydration = true;
 
         // rootNutrition >= neededNutrition:
         sufficientNutrition = true;

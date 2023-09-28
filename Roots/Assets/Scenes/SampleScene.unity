@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &298873692 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-  m_PrefabInstance: {fileID: 1690908492507310477}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1961742938
 Transform:
   m_ObjectHideFlags: 0
@@ -429,8 +424,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 298873692}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -446,68 +440,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32faff1f6c80645418423d010d9133e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterDropPrefab: {fileID: 1690908492753705686, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
 --- !u!4 &2105542536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9152901362292677834, guid: 574b7f3acae890f4082131a9fe96eff8, type: 3}
   m_PrefabInstance: {fileID: 9152901360321354562}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1690908492507310477
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1961742938}
-    m_Modifications:
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705681, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690908492753705686, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
-      propertyPath: m_Name
-      value: WaterDrop
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 743f1ed73c10f644c8c261f9be953ad2, type: 3}
 --- !u!1001 &9152901360321354562
 PrefabInstance:
   m_ObjectHideFlags: 0

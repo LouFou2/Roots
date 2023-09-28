@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class WaterBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float growFactor = 0.01f; // Adjust this value to control the growth rate
+    public float hydrationValue = 5f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        Vector3 scaleChange = new Vector3(growFactor, growFactor, growFactor);
+        transform.localScale += scaleChange * Time.deltaTime;
     }
 }

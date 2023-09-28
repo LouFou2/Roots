@@ -127,3 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ebab6075207d31409fd589696788dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growFactor: 0.1
+  hydrationValue: 50
