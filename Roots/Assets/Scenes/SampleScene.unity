@@ -390,12 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4fd6e3b065f9f42bca0c04e7ce8ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootCellList:
-  - {fileID: 47925171015478411, guid: 58dba0cd4dc6aa34f9a482f153c4e7d1, type: 3}
-  rootHydration: 0
-  neededHydration: 1
-  rootNutrition: 0
-  neededNutrition: 1
+  _rootPrefab: {fileID: 47925171015478411, guid: 58dba0cd4dc6aa34f9a482f153c4e7d1, type: 3}
+  _growFactor: 0.5
+  _rootCellList: []
 --- !u!1 &1961742937
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +404,7 @@ GameObject:
   - component: {fileID: 1961742938}
   - component: {fileID: 1961742939}
   m_Layer: 0
-  m_Name: ObjectPoolWater
+  m_Name: WaterSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,7 +25,7 @@ public class RootBehaviour : MonoBehaviour
         {
             isHydrating = true;
             hydrationAvailable = other.GetComponent<WaterBehaviour>().hydrationValue;
-            //StartCoroutine(SuckHydration(other.gameObject)); // Pass the "Water" object
+            StartCoroutine(SuckHydration(other.gameObject)); // Pass the "Water" object
             Debug.Log("Hydrating!");
         }
     }
@@ -35,16 +35,16 @@ public class RootBehaviour : MonoBehaviour
         while (hydrationAvailable > 0)
         {
             hydrationAvailable -= suckFactor;
+            waterObject.GetComponent<WaterBehaviour>().hydrationValue = hydrationAvailable;
 
-            // Check hydrationAvailable here, after it has been updated
-            if (hydrationAvailable <= 0)
-            {
-                // Destroy the "Water" object passed as a parameter
-                Destroy(waterObject);
-                isHydrating = false;
-            }
-
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
+        }
+        // Check hydrationAvailable here, after it has been updated
+        if (hydrationAvailable <= 0)
+        {
+            // Destroy the "Water" object passed as a parameter
+            Destroy(waterObject);
+            isHydrating = false;
         }
     }
 }

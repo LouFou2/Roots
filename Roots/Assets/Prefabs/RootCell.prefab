@@ -128,3 +128,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasSpawnedNewCell: 0
+  isHydrating: 0
+  suckFactor: 0.4
