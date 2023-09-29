@@ -55,33 +55,20 @@ public class GrowManager : MonoBehaviour
             if (_sufficientHydration && _sufficientNutrition)
             {
                 // Ensure the coroutine is not already running to avoid starting it multiple times
-                //if (!IsCoroutineRunning("GrowNewCells"))
                 if (!_isGrowingNewCells)
                 {
                     StartCoroutine(GrowNewCells());
                 }
             }
-            /*if (sufficientHydration && sufficientNutrition)
+            // Check if the cell has decayed completely
+            if (rootBehaviour.decayValue <= 0f)
             {
-                if (!rootBehaviour.hasSpawnedNewCell)
-                {
-                    // Instantiate a new root cell and set hasSpawnedNewCell to true for this index
-                    Vector3 randomPosition = GetRandomPosition();
-                    if (randomPosition.x > 25 || randomPosition.x < -25 || randomPosition.y > 14 || randomPosition.y < -14)
-                    {
-                        randomPosition = Vector3.zero;
-                        lastCellPosition = randomPosition;
-                    }
-                    else
-                    {
-                        GameObject newCell = Instantiate(rootPrefab, randomPosition, Quaternion.identity);
-                        RootBehaviour newRootBehaviour = newCell.GetComponent<RootBehaviour>();
-                        newRootBehaviour.hasSpawnedNewCell = false;
-                        rootBehaviour.hasSpawnedNewCell = true;
-                        newCells.Add(newCell); // Add the newly instantiated cell to the list
-                    }
-                }
-            }*/
+                // Destroy the GameObject
+                Destroy(cell);
+
+                // Remove the cell from the list
+                _rootCellList.Remove(cell);
+            }
         }
 
         // Add the new cells to the rootCellList after the loop
@@ -93,18 +80,7 @@ public class GrowManager : MonoBehaviour
         // if rootNutrition >= neededNutrition:
         _sufficientNutrition = true;
     }
-    private bool IsCoroutineRunning(string methodName)
-    {
-        // Check if a coroutine with the specified method name is already running
-        foreach (var coroutine in GetComponents(typeof(MonoBehaviour)))
-        {
-            if (coroutine.ToString().Contains(methodName))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+
     private IEnumerator GrowNewCells()
     {
         while (_sufficientHydration && _sufficientNutrition) // Loop as long as both conditions are met

@@ -6,6 +6,7 @@ public class WaterBehaviour : MonoBehaviour
 {
     [SerializeField] private float _growFactor = 0.1f; // Adjust this value to control the growth rate
     [SerializeField] private float _alphaFactor = 0.2f; // The initial value of the water material alpha
+    [SerializeField] private float _evaporationSpeed = 1f;
     public float hydrationValue = 1f;
     private float _initialHydrationValue = 1f;
     
@@ -32,5 +33,9 @@ public class WaterBehaviour : MonoBehaviour
 
         Vector3 scaleChange = new Vector3(_growFactor, _growFactor, _growFactor);
         transform.localScale += scaleChange * Time.deltaTime;
+        hydrationValue -= (_growFactor * _evaporationSpeed) * Time.deltaTime;
+
+        if (hydrationValue < 0f) 
+            Destroy(gameObject);
     }
 }

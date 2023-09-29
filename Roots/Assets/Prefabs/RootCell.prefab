@@ -130,3 +130,7 @@ MonoBehaviour:
   hasSpawnedNewCell: 0
   isHydrating: 0
   suckFactor: 0.4
+  _decayIncrement: 2
+  _decayFactor: 0.02
+  _initialDecayValue: 1
+  _decayValue: 1

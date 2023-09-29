@@ -17,8 +17,8 @@ public class WaterSpawner : MonoBehaviour
         while (true) // This will keep the spawning process running indefinitely
         {
             float randomWaitTime = Random.Range(0.5f, 5f);
-            float randomX = Random.Range(-25f, 25f);
-            float randomY = Random.Range(-14f, 14f);
+            float randomX = Random.Range(-23f, 23f);
+            float randomY = Random.Range(-12f, 12f);
             spawnPosition = new Vector3(randomX, randomY, 0);
             yield return new WaitForSeconds(randomWaitTime);
 

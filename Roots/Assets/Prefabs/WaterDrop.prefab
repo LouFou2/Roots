@@ -129,4 +129,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _growFactor: 0.1
   _alphaFactor: 0.2
+  _evaporationFactor: 0.1
   hydrationValue: 10

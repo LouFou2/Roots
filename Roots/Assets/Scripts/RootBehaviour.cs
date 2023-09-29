@@ -9,10 +9,17 @@ public class RootBehaviour : MonoBehaviour
     public bool isHydrating = false;
     private float hydrationAvailable = 0f;
     [SerializeField] private float suckFactor = 0.1f;
+    [SerializeField] private float _decayIncrement = 0.1f;
+    [SerializeField] private float _decayFactor = 0.1f;
+    [SerializeField] private float _initialDecayValue = 1f;
+    public float decayValue = 1f;
     void Start()
     {
         hasSpawnedNewCell = false;
         isHydrating = false;
+        _initialDecayValue = 1f;
+        decayValue = _initialDecayValue;
+        StartCoroutine(LifeSpan());
     }
 
     void Update()
@@ -45,6 +52,27 @@ public class RootBehaviour : MonoBehaviour
             // Destroy the "Water" object passed as a parameter
             Destroy(waterObject);
             isHydrating = false;
+        }
+    }
+
+    private IEnumerator LifeSpan() 
+    {
+        while(decayValue > 0f) 
+        {
+            // Calculate the interpolation parameter using InverseLerp
+            float alphaLerp = Mathf.InverseLerp(0f, _initialDecayValue, decayValue);
+
+            // Change the alpha value of the object's material color
+            MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                Material material = meshRenderer.material;
+                Color color = material.color;
+                color.a = alphaLerp;
+                material.color = color;
+            }
+            decayValue -= _decayFactor;
+            yield return new WaitForSeconds(_decayIncrement);
         }
     }
 }
