@@ -8,6 +8,7 @@ public class GrowManager : MonoBehaviour
     [SerializeField] private GameObject _rootPrefab;
     [SerializeField] private float _growFactor = 1f;
     [SerializeField] private List<GameObject> _rootCellList = new List<GameObject>();
+    public int growthAmount;
     private List<GameObject> _newCells = new List<GameObject>(); // List to store new cells to be added
     private List<GameObject> _cellsToRemove = new List<GameObject>(); // List to store dead cells to be removed
     private bool _isGrowingNewCells = false;
@@ -51,7 +52,6 @@ public class GrowManager : MonoBehaviour
             if (rootBehaviour.isHydrating)
             {
                 _sufficientHydration = true;
-                Debug.Log("Should hydrate now...");
             }
             // Check if there is sufficient hydration and nutrition to start growing cells
             if (_sufficientHydration && _sufficientNutrition)
@@ -85,6 +85,8 @@ public class GrowManager : MonoBehaviour
 
         // if rootNutrition >= neededNutrition:
         _sufficientNutrition = true;
+
+        growthAmount = _rootCellList.Count;
     }
 
     private IEnumerator GrowNewCells()
@@ -106,6 +108,7 @@ public class GrowManager : MonoBehaviour
                     {
                         randomPosition = Vector3.zero;
                         _lastCellPosition = randomPosition;
+                        _currentAngle = Random.Range(0f, 360f);
                     }
                     else
                     {

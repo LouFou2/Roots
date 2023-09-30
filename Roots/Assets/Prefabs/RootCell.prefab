@@ -129,8 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasSpawnedNewCell: 0
   isHydrating: 0
+  decayValue: 1
   suckFactor: 0.4
-  _decayIncrement: 2
+  _decayTimer: 2
   _decayFactor: 0.02
-  _initialDecayValue: 1
-  _decayValue: 1
+  _alphaFactor: 0.5
