@@ -22,6 +22,13 @@ public class RootBehaviour : MonoBehaviour
         _initialDecayValue = 1f;
         decayValue = _initialDecayValue;
         StartCoroutine(LifeSpan());
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio != null && audio.clip != null) 
+        {
+            audio.pitch = Random.Range(1f, 2f);
+            audio.Play();
+        }
+            
     }
 
     void Update()
@@ -30,19 +37,20 @@ public class RootBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Water"))
+        if (other.CompareTag("Water") && !isHydrating)
         {
             isHydrating = true;
             _hydrationAvailable = other.GetComponent<WaterBehaviour>().hydrationValue;
             StartCoroutine(SuckHydration(other.gameObject)); // Pass the "Water" object
-            Debug.Log("Hydrating!");
         }
     }
 
     private IEnumerator SuckHydration(GameObject waterObject) // Accept a reference to the "Water" object 
     {
-        if(waterObject != null) 
+        bool waterIsGettingSucked = waterObject.GetComponent<WaterBehaviour>().isGettingSucked;
+        if (waterObject != null && !waterIsGettingSucked) 
         {
+            waterObject.GetComponent<WaterBehaviour>().isGettingSucked = true;
             while (_hydrationAvailable > 0 && waterObject != null)
             {
                 _hydrationAvailable -= _suckFactor;
@@ -58,7 +66,6 @@ public class RootBehaviour : MonoBehaviour
                 isHydrating = false;
             }
         }
-
     }
 
     private IEnumerator LifeSpan() 

@@ -8,11 +8,19 @@ public class WaterBehaviour : MonoBehaviour
     [SerializeField] private float _alphaFactor = 0.2f; // The initial value of the water material alpha
     [SerializeField] private float _evaporationSpeed = 1f;
     public float hydrationValue = 1f;
+    public bool isGettingSucked = false;
     private float _initialHydrationValue = 1f;
     
     void Start() 
     {
         _initialHydrationValue = hydrationValue;
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio != null && audio.clip != null) 
+        {
+            audio.pitch = Random.Range(1f, 2f);
+            audio.Play();
+        }
+            
     }
 
     void Update()
@@ -20,6 +28,10 @@ public class WaterBehaviour : MonoBehaviour
         // Calculate the interpolation parameter using InverseLerp
         float alphaLerp = Mathf.InverseLerp(0f, _initialHydrationValue, hydrationValue);
         alphaLerp *= _alphaFactor;
+
+        // Avoid flickering by using an epsilon value for comparison
+        float epsilon = 0.001f;
+        if (alphaLerp < epsilon) alphaLerp = 0f;
 
         // Change the alpha value of the object's material color
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();

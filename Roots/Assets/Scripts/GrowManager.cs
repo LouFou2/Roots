@@ -121,7 +121,7 @@ public class GrowManager : MonoBehaviour
                 }
             }
             _isGrowingNewCells = true;
-            yield return new WaitForSeconds(_growFactor);
+            yield return new WaitForSeconds(_growFactor + Random.Range(-0.3f, 0.3f));
         }
         _isGrowingNewCells = false;
     }
