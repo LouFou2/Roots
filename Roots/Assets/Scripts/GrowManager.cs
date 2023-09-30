@@ -9,6 +9,7 @@ public class GrowManager : MonoBehaviour
     [SerializeField] private float _growFactor = 1f;
     [SerializeField] private List<GameObject> _rootCellList = new List<GameObject>();
     private List<GameObject> _newCells = new List<GameObject>(); // List to store new cells to be added
+    private List<GameObject> _cellsToRemove = new List<GameObject>(); // List to store dead cells to be removed
     private bool _isGrowingNewCells = false;
 
     /*[SerializeField] private float rootHydration = 0f;
@@ -16,8 +17,8 @@ public class GrowManager : MonoBehaviour
     [SerializeField] private float rootNutrition = 0f;
     [SerializeField] private float neededNutrition = 1f;*/ //MAY OR MAY NOT USE THIS
 
-    [SerializeField] private bool _sufficientHydration = false;
-    private bool _sufficientNutrition = false; // if both these bools are true for rootsystem, can span a new cell
+    private bool _sufficientHydration = false;
+    private bool _sufficientNutrition = false; // might use nutrition later
 
     private float _currentAngle;
     private Vector3 _lastCellPosition = Vector3.zero;
@@ -41,6 +42,7 @@ public class GrowManager : MonoBehaviour
     void Update()
     {
         _newCells.Clear(); // Clear the list of new cells at the start of each update
+        _cellsToRemove.Clear();
 
         foreach (GameObject cell in _rootCellList)
         {
@@ -63,12 +65,16 @@ public class GrowManager : MonoBehaviour
             // Check if the cell has decayed completely
             if (rootBehaviour.decayValue <= 0f)
             {
-                // Destroy the GameObject
-                Destroy(cell);
-
-                // Remove the cell from the list
-                _rootCellList.Remove(cell);
+                // Add the cell to the removal list
+                _cellsToRemove.Add(cell);
             }
+        }
+        // Remove cells marked for removal
+        foreach (GameObject cellToRemove in _cellsToRemove)
+        {
+            _rootCellList.Remove(cellToRemove);
+            // Destroy the GameObject
+            Destroy(cellToRemove);
         }
 
         // Add the new cells to the rootCellList after the loop
@@ -93,7 +99,10 @@ public class GrowManager : MonoBehaviour
                 {
                     // Instantiate a new root cell and set hasSpawnedNewCell to true for this index
                     Vector3 randomPosition = GetRandomPosition();
-                    if (randomPosition.x > 25 || randomPosition.x < -25 || randomPosition.y > 14 || randomPosition.y < -14)
+                    Vector2 random2dPosition = new Vector2(randomPosition.x, randomPosition.y);
+                    float growLimit = 12f + Random.Range(-1f,1f);
+
+                    if (random2dPosition.magnitude > growLimit)
                     {
                         randomPosition = Vector3.zero;
                         _lastCellPosition = randomPosition;

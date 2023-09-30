@@ -17,9 +17,13 @@ public class WaterSpawner : MonoBehaviour
         while (true) // This will keep the spawning process running indefinitely
         {
             float randomWaitTime = Random.Range(0.5f, 5f);
-            float randomX = Random.Range(-23f, 23f);
-            float randomY = Random.Range(-12f, 12f);
-            spawnPosition = new Vector3(randomX, randomY, 0);
+
+            float spawnRadius = Random.Range(0, 12f);
+            float randomAngle = Random.Range(0f, 2f * Mathf.PI); // Choose a random angle in radians
+            float spawnX = spawnRadius * Mathf.Cos(randomAngle); // Calculate x position using polar coordinates
+            float spawnY = spawnRadius * Mathf.Sin(randomAngle); // Calculate y position using polar coordinates
+            spawnPosition = new Vector3(spawnX, spawnY, 0);
+
             yield return new WaitForSeconds(randomWaitTime);
 
             // Instantiate the water drop after the random wait time
