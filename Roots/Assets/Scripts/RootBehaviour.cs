@@ -8,6 +8,8 @@ public class RootBehaviour : MonoBehaviour
     public bool hasSpawnedNewCell = false;
     public bool isHydrating = false;
     public float decayValue = 1f;
+    [SerializeField] private Sprite[] sprites;
+    public bool lastSpriteOnRoot = false;
     [SerializeField] private float _suckFactor = 0.1f;
     [SerializeField] private float _decayTimer = 2f;
     [SerializeField] private float _decayFactor = 0.1f;
@@ -17,6 +19,9 @@ public class RootBehaviour : MonoBehaviour
     
     void Start()
     {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = sprites[0];
         hasSpawnedNewCell = false;
         isHydrating = false;
         _initialDecayValue = 1f;
@@ -33,7 +38,18 @@ public class RootBehaviour : MonoBehaviour
 
     void Update()
     {
-        
+        if (hasSpawnedNewCell) 
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+                spriteRenderer.sprite = sprites[1];
+        }
+        if (lastSpriteOnRoot) 
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+                spriteRenderer.sprite = sprites[0];
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -77,10 +93,10 @@ public class RootBehaviour : MonoBehaviour
             alphaLerp *= _alphaFactor;
 
             // Change the alpha value of the object's material color
-            MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
             {
-                Material material = meshRenderer.material;
+                Material material = spriteRenderer.material;
                 Color color = material.color;
                 color.a = alphaLerp;
                 material.color = color;

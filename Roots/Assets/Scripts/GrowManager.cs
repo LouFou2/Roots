@@ -29,7 +29,7 @@ public class GrowManager : MonoBehaviour
         if (_rootPrefab != null)
         {
             Vector3 randomPosition = GetRandomPosition();
-            GameObject rootCell = Instantiate(_rootPrefab, randomPosition, Quaternion.identity);
+            GameObject rootCell = Instantiate(_rootPrefab, randomPosition, Quaternion.Euler(0, 0, _currentAngle));
             RootBehaviour rootBehaviour = rootCell.GetComponent<RootBehaviour>();
             rootBehaviour.hasSpawnedNewCell = false;
             _lastCellPosition = randomPosition;
@@ -109,10 +109,11 @@ public class GrowManager : MonoBehaviour
                         randomPosition = Vector3.zero;
                         _lastCellPosition = randomPosition;
                         _currentAngle = Random.Range(0f, 360f);
+                        cell.GetComponent<RootBehaviour>().lastSpriteOnRoot = true;
                     }
                     else
                     {
-                        GameObject newCell = Instantiate(_rootPrefab, randomPosition, Quaternion.identity);
+                        GameObject newCell = Instantiate(_rootPrefab, randomPosition, Quaternion.Euler(0, 0, _currentAngle));
                         RootBehaviour newRootBehaviour = newCell.GetComponent<RootBehaviour>();
                         newRootBehaviour.hasSpawnedNewCell = false;
                         rootBehaviour.hasSpawnedNewCell = true;
@@ -128,7 +129,7 @@ public class GrowManager : MonoBehaviour
 
     Vector3 GetRandomPosition()
     {
-        float minDistance = 1f; // Adjust this value to control the minimum distance between cells (the sphere diameter)
+        float minDistance = 0.75f; // Adjust this value to control the minimum distance between cells (the sphere diameter)
 
         // get a new angle that varies only slightly from the previous angle
         float angleVariance = Random.Range(-30f, 30f);
