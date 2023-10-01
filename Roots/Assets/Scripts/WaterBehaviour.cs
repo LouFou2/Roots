@@ -34,10 +34,10 @@ public class WaterBehaviour : MonoBehaviour
         if (alphaLerp < epsilon) alphaLerp = 0f;
 
         // Change the alpha value of the object's material color
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        if (meshRenderer != null)
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            Material material = meshRenderer.material;
+            Material material = spriteRenderer.material;
             Color color = material.color;
             color.a = alphaLerp;
             material.color = color;

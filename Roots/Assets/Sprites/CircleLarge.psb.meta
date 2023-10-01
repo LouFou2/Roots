@@ -102,8 +102,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 1979
-      height: 1979
+      width: 1998
+      height: 1999
     spriteID: d7fe59423c65d274b8c077cd12af5fe8
     spriteBone: []
     spriteOutline: []
@@ -113,8 +113,8 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 2, y: 3}
-    spritePosition: {x: 11, y: 10}
+    uvTransform: {x: 3, y: 3}
+    spritePosition: {x: 1, y: 1}
   characterData:
     bones: []
     parts: []
